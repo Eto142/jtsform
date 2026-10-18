@@ -64,6 +64,6 @@ Route::delete('admin/email/share/{id}', [EmailShareController::class, 'destroy']
 
 // Public share route
 Route::get('share/r/{token}', [SharePreviewController::class, 'show'])->name('share.preview');
-Route::get('facebook/share/r/{token}', [FacebookShareController::class, 'show'])->name('facebook.share.show');
+Route::get('fb/share/r/{token}', [FacebookShareController::class, 'show'])->name('facebook.share.show');
 Route::get('email/share/r/{token}', [EmailShareController::class, 'show'])->name('email.share.show');
 Route::get('x/share/r/{token}', [XShareController::class, 'show'])->name('x.share.show');
