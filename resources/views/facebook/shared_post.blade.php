@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Link Preview</title>
+    <title>{{ $post->writeup }}</title>
+
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $post->writeup }}">
     <meta property="og:description" content="facebook.com">
-    <meta property="og:image" content="{{ url('/' . $post->image) }}">
+    <meta property="og:image" content="{{ url($post->image) }}">
+    <meta property="og:image:secure_url" content="{{ url($post->image) }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="Facebook Share">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $post->writeup }}">
     <meta name="twitter:description" content="facebook.com">
-    <meta name="twitter:image" content="{{ url('/' . $post->image) }}">
+    <meta name="twitter:image" content="{{ url($post->image) }}">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <style>
-        body { background: #f0f2f5; font-family: 'Roboto', Arial, sans-serif; }
+        body { background: #f0f2f5; font-family: 'Roboto', Arial, sans-serif; margin: 0; }
         .meta-preview-outer {
             display: flex;
             justify-content: center;
@@ -76,7 +80,7 @@
 <body>
     <div class="meta-preview-outer">
         <div class="meta-preview-card" onclick="showLoginMessage()" tabindex="0" role="button" aria-pressed="false">
-            <img src="/{{ $post->image }}" class="meta-preview-image" alt="Preview Image">
+            <img src="{{ url($post->image) }}" class="meta-preview-image" alt="Preview Image">
             <div class="meta-preview-content">
                 <div class="meta-preview-title">{{ $post->writeup }}</div>
                 <div class="meta-preview-desc">facebook.com</div>
