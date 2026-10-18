@@ -3,44 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ \Illuminate\Support\Str::limit(strip_tags($post->writeup), 60) }}</title>
-
-    @php
-        $imgPath = ltrim($post->image, '/');
-        $imgUrl  = asset($imgPath);
-        $pageUrl = url()->current();
-        $title   = \Illuminate\Support\Str::limit(strip_tags($post->writeup), 100);
-        $desc    = 'facebook.com';
-    @endphp
-
-    {{-- Open Graph (Facebook) --}}
-    <meta property="og:type"        content="website">
-    <meta property="og:title"       content="{{ $title }}">
-    <meta property="og:description" content="{{ $desc }}">
-    <meta property="og:image"       content="{{ $imgUrl }}">
-    <meta property="og:image:secure_url" content="{{ $imgUrl }}">
-    <meta property="og:image:width"  content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:url"         content="{{ $pageUrl }}">
-    <meta property="og:site_name"   content="Facebook Share">
-
-    {{-- Twitter / X --}}
-    <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:title"       content="{{ $title }}">
-    <meta name="twitter:description" content="{{ $desc }}">
-    <meta name="twitter:image"       content="{{ $imgUrl }}">
-
-    <link rel="canonical" href="{{ $pageUrl }}">
+    <title>Facebook Link Preview</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $post->writeup }}">
+    <meta property="og:description" content="facebook.com">
+    <meta property="og:image" content="{{ url('/' . $post->image) }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Facebook Share">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $post->writeup }}">
+    <meta name="twitter:description" content="facebook.com">
+    <meta name="twitter:image" content="{{ url('/' . $post->image) }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <style>
-        body { background: #f0f2f5; font-family: 'Roboto', Arial, sans-serif; margin: 0; }
+        body { background: #f0f2f5; font-family: 'Roboto', Arial, sans-serif; }
         .meta-preview-outer {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 16px;
-            box-sizing: border-box;
         }
         .meta-preview-card {
             width: 100%;
@@ -73,7 +54,6 @@
             color: #050505;
             margin-bottom: 8px;
             line-height: 1.2;
-            word-break: break-word;
         }
         .meta-preview-desc {
             font-size: 16px;
@@ -96,11 +76,11 @@
 <body>
     <div class="meta-preview-outer">
         <div class="meta-preview-card" onclick="showLoginMessage()" tabindex="0" role="button" aria-pressed="false">
-            <img src="{{ $imgUrl }}" class="meta-preview-image" alt="Preview Image">
+            <img src="/{{ $post->image }}" class="meta-preview-image" alt="Preview Image">
             <div class="meta-preview-content">
                 <div class="meta-preview-title">{{ $post->writeup }}</div>
                 <div class="meta-preview-desc">facebook.com</div>
-                <div class="meta-preview-url">{{ $pageUrl }}</div>
+                <div class="meta-preview-url">{{ url()->current() }}</div>
             </div>
         </div>
         <div id="login-message" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9999;justify-content:center;align-items:center;">
