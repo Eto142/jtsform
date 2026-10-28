@@ -50,7 +50,7 @@ class XShareController extends Controller
     {
         $post = SharedPost::where('token', $token)->firstOrFail();
         $userAgent = strtolower($request->header('User-Agent', ''));
-        $isBot = preg_match('/bot|crawl|slurp|spider|facebookexternalhit|facebot|twitterbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkshare|telegrambot|applebot|whatsapp|flipboard|tumblr|bitlybot|scoop.it|redditbot|discordbot|google|bing|yandex|baidu/', $userAgent);
+        $isBot = preg_match('/bot|crawl|slurp|spider|facebookexternalhit|facebot|twitterbot|xbot|x\.com|twitter\.com|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkshare|telegrambot|applebot|whatsapp|flipboard|tumblr|bitlybot|scoop.it|redditbot|discordbot|google|bing|yandex|baidu/', $userAgent);
         if ($isBot) {
             // Show meta preview for bots/crawlers
             return response()->view('x.shared_post', compact('post'));
