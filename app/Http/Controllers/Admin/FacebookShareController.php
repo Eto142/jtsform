@@ -27,8 +27,10 @@ class FacebookShareController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image',
+            'image' => 'required|image|max:10240',
             'writeup' => 'required|string',
+        ], [
+            'image.max' => 'The image must not be larger than 10 MB.',
         ]);
         $image = $request->file('image');
         $imageName = uniqid('share_') . '.' . $image->getClientOriginalExtension();

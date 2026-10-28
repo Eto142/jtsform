@@ -122,7 +122,13 @@
                     <input type="hidden" name="is_phone_share" value="1">
                     <div class="form-group">
                         <label for="imageInput" class="form-label">Image</label>
-                        <input type="file" name="image" id="imageInput" class="form-input" required>
+                        <input type="file" name="image" id="imageInput" class="form-input" accept="image/*" aria-describedby="imageUploadError" required>
+                        @error('image')
+                            <small id="imageUploadError" role="alert" style="color:#e74c3c;">{{ $message }}</small>
+                        @else
+                            <small id="imageUploadError" role="alert" style="color:#e74c3c;" hidden></small>
+                        @enderror
+                        <small class="form-text">Maximum file size: 10 MB.</small>
                     </div>
                     <div class="form-group">
                         <label for="writeupInput" class="form-label">Writeup</label>
@@ -191,6 +197,36 @@
 </div>
 
 <script>
+    const imageInput = document.getElementById('imageInput');
+    const uploadError = document.getElementById('imageUploadError');
+    const shareForm = imageInput.closest('form');
+    const submitButton = shareForm.querySelector('button[type="submit"]');
+    const maxImageSize = 10 * 1024 * 1024;
+
+    imageInput.addEventListener('change', function () {
+        uploadError.hidden = true;
+        uploadError.textContent = '';
+
+        if (imageInput.files[0]?.size > maxImageSize) {
+            uploadError.textContent = 'Please choose an image no larger than 10 MB.';
+            uploadError.hidden = false;
+        }
+    });
+
+    shareForm.addEventListener('submit', function (event) {
+        if (imageInput.files[0]?.size > maxImageSize) {
+            event.preventDefault();
+            uploadError.textContent = 'Please choose an image no larger than 10 MB.';
+            uploadError.hidden = false;
+            return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = 'Uploading image...';
+    });
+</script>
+
+<script>
     function copyShareLink(link) {
         const tempInput = document.createElement('input');
         tempInput.value = link;
@@ -203,4 +239,3 @@
     }
 </script>
 @include('admin.footer')
-
