@@ -39,7 +39,7 @@ class XShareController extends Controller
             'platform' => 'twitter',
         ]);
 
-        $shareUrl = URL::route('share.preview', ['token' => $token]);
+        $shareUrl = URL::route('x.share.show', ['token' => $token]);
         $actionUrl = 'https://twitter.com/intent/tweet?text=' . rawurlencode($data['writeup']) . '&url=' . rawurlencode($shareUrl);
         $history = SharedPost::where('platform', 'twitter')->latest()->take(10)->get();
 

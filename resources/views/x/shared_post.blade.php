@@ -8,12 +8,12 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{ $post->writeup }}">
     <meta property="og:description" content="{{ \Illuminate\Support\Str::limit($post->writeup, 160) }}">
-    <meta property="og:image" content="{{ asset($post->image) }}">
+    <meta property="og:image" content="{{ url('/' . $post->image) }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $post->writeup }}">
     <meta name="twitter:description" content="{{ \Illuminate\Support\Str::limit($post->writeup, 160) }}">
-    <meta name="twitter:image" content="{{ asset($post->image) }}">
+    <meta name="twitter:image" content="{{ url('/' . $post->image) }}">
     <style>
         * { box-sizing: border-box; }
         body {
@@ -55,7 +55,7 @@
 </head>
 <body>
     <main>
-        <img src="{{ asset($post->image) }}" alt="Shared image">
+        <img src="{{ url('/' . $post->image) }}" alt="Shared image">
         <div class="writeup">{{ $post->writeup }}</div>
     </main>
 </body>
